@@ -5,9 +5,9 @@ const menu=[
     {name:"Veggie", price:7},
 ]
 
-const nextOrderId=1;
-const cashInRegister = 100;
-const orderQueue = {};
+let nextOrderId=1;
+let cashInRegister = 100;
+const orderQueue = [];
 
 function addNewPizza(pizzaObj) {
     menu.push(pizzaObj)
@@ -16,7 +16,7 @@ function addNewPizza(pizzaObj) {
 function placeOrder(pizzaName) {
     const selectedPizza = menu.find(item => item.name === pizzaName);
     cashInRegister += selectedPizza.price;
-    const newOrder = { pizza: selectedPizza, status: "ordered", id: nextOrderId++ };
+    let newOrder = { pizza: selectedPizza, status: "ordered", id: nextOrderId++ };
     orderQueue.push(newOrder);
     return newOrder;
 }
@@ -27,11 +27,21 @@ function completeOrder(orderId) {
     return completeOrder;
 }
 
-addNewPizza({name:"Golden Corn", price:5});
-completeOrder("1");
+addNewPizza({name:"Golden Corn", price:12});
+addNewPizza({name:"Onion", price:1});
+addNewPizza({name:"Paneer", price:2});
+
+console.log(menu);
 
 placeOrder("Veggie");
+placeOrder("Onion");
+placeOrder("Paneer");
+placeOrder("Golden Corn");
 
-console.log(menu,orderQueue,"id:",id);
+console.log(orderQueue);
 
+completeOrder(1);
+completeOrder(4);
+completeOrder(2);
 
+console.log(orderQueue);
