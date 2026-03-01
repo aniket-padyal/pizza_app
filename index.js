@@ -8,7 +8,7 @@ const menu = [
 ];
 let nextOrderId = 1;
 let cashInRegister = 100;
-const orderQueue = [];
+const orderHistory = [];
 function addNewPizza(pizzaObj) {
     menu.push(pizzaObj);
 }
@@ -19,12 +19,16 @@ function placeOrder(pizzaName) {
         return;
     }
     cashInRegister += selectedPizza.price;
-    let newOrder = { pizza: selectedPizza, status: "ordered", id: nextOrderId++ };
-    orderQueue.push(newOrder);
+    let newOrder = { id: nextOrderId++, pizza: selectedPizza, status: "ordered", };
+    orderHistory.push(newOrder);
     return newOrder;
 }
 function completeOrder(orderId) {
-    const order = orderQueue.find(order => order.id === orderId);
+    const order = orderHistory.find(order => order.id === orderId);
+    if (!order) {
+        console.error(`${orderId} was not found in the order history.`);
+        return;
+    }
     order.status = "completed";
     return completeOrder;
 }
@@ -36,9 +40,9 @@ placeOrder("Veggie");
 placeOrder("Onion");
 placeOrder("Paneer");
 placeOrder("Golden Corn");
-console.log(orderQueue);
+console.log(orderHistory);
 completeOrder(1);
 completeOrder(4);
 completeOrder(2);
-console.log(orderQueue);
+console.log(orderHistory);
 //# sourceMappingURL=index.js.map

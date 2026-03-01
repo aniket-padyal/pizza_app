@@ -1,5 +1,7 @@
 type Pizza = {name: string, price: number}
 
+type Order = {id: number, pizza: Pizza, status: string}
+
 const menu=[
     {name:"Margherita", price:8},
     {name:"Pepperoni", price:10},
@@ -9,7 +11,7 @@ const menu=[
 
 let nextOrderId: number=1;
 let cashInRegister: number = 100;
-const orderQueue = [];
+const orderHistory: Order[] = [];
 
 function addNewPizza(pizzaObj: Pizza) {
     menu.push(pizzaObj)
@@ -20,17 +22,21 @@ function placeOrder(pizzaName:string) {
 
     if (!selectedPizza) {
     console.error(`Sorry, ${selectedPizza} pizza is not available.`);
-        return;
+    return;
     }
 
     cashInRegister += selectedPizza.price;
-    let newOrder = { pizza: selectedPizza, status: "ordered", id: nextOrderId++ };
-    orderQueue.push(newOrder);
+    let newOrder = { id: nextOrderId++, pizza: selectedPizza, status: "ordered",  };
+    orderHistory.push(newOrder);
     return newOrder;
 }
 
 function completeOrder(orderId : number) {
-    const order = orderQueue.find(order => order.id === orderId);
+    const order = orderHistory.find(order => order.id === orderId);
+    if (!order) {
+        console.error(`${orderId} was not found in the order history.`);
+        return;
+    }
     order.status = "completed";
     return completeOrder;
 }
@@ -46,10 +52,10 @@ placeOrder("Onion");
 placeOrder("Paneer");
 placeOrder("Golden Corn");
 
-console.log(orderQueue);
+console.log(orderHistory);
 
 completeOrder(1);
 completeOrder(4);
 completeOrder(2);
 
-console.log(orderQueue);
+console.log(orderHistory);
