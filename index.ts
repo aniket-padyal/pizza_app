@@ -1,3 +1,5 @@
+type Pizza = {name: string, price: number}
+
 const menu=[
     {name:"Margherita", price:8},
     {name:"Pepperoni", price:10},
@@ -9,7 +11,7 @@ let nextOrderId: number=1;
 let cashInRegister: number = 100;
 const orderQueue = [];
 
-function addNewPizza(pizzaObj) {
+function addNewPizza(pizzaObj: Pizza) {
     menu.push(pizzaObj)
 }
 
