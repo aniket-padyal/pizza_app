@@ -1,17 +1,6 @@
-type Address = {
-    street: string
-    city: string
-    country?: string
-}
-
-type Person = {
-    name: string,
-    age: number,
-    isStudent: boolean,
-    address: Address,
-}
-
-const person1: Person = {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const person1 = {
     name: "Aniket",
     age: 14,
     isStudent: false,
@@ -20,9 +9,8 @@ const person1: Person = {
         city: "Mumbai",
         country: "Russia"
     }
-}
-
-const person2: Person = {
+};
+const person2 = {
     name: "Tekina",
     age: 41,
     isStudent: true,
@@ -31,10 +19,9 @@ const person2: Person = {
         city: "Mumbai",
         // country: "Russia"
     }
-}
-
-function displayInfo(person: Person) {
+};
+function displayInfo(person) {
     console.log(`${person.name} lives at ${person.address?.country}.`);
 }
-
 displayInfo(person2);
+//# sourceMappingURL=extras.js.map
